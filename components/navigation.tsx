@@ -48,37 +48,31 @@ export function BottomNavigation({ className }: BottomNavigationProps) {
 
   return (
     <nav className={cn(
-      "fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t border-border",
+      "fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700",
       "md:hidden", // Hide on desktop
       className
     )}>
-      <div className="flex items-center justify-around px-2 py-2 safe-area-pb">
+      <div className="flex items-center justify-around px-1 py-1 safe-area-pb">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
           const Icon = item.icon
           
           return (
-            <Button
+            <Link
               key={item.id}
-              asChild
-              variant="ghost"
-              size="sm"
+              href={item.href}
               className={cn(
-                "relative flex flex-col gap-1 h-auto py-2 px-3 min-w-0 flex-1",
-                "text-muted-foreground hover:text-foreground",
-                isActive && "text-primary"
+                "flex flex-col items-center gap-1 py-2 px-2 min-w-0 flex-1 rounded-lg transition-colors touch-manipulation",
+                "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100",
+                isActive && "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
               )}
             >
-              <Link href={item.href}>
-                <Icon className="h-5 w-5" />
-                <span className="text-xs font-medium">{item.label}</span>
-                {isActive && (
-                  <div
-                    className="absolute -top-1 left-1/2 w-1 h-1 bg-primary rounded-full transform -translate-x-1/2"
-                  />
-                )}
-              </Link>
-            </Button>
+              <Icon className="h-5 w-5 shrink-0" />
+              <span className="text-xs font-medium truncate">{item.label}</span>
+              {isActive && (
+                <div className="absolute top-0 left-1/2 w-1 h-1 bg-blue-600 dark:bg-blue-400 rounded-full transform -translate-x-1/2" />
+              )}
+            </Link>
           )
         })}
       </div>
@@ -95,14 +89,14 @@ export function DesktopSidebar({ className }: DesktopSidebarProps) {
 
   return (
     <aside className={cn(
-      "hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-50 bg-background border-r border-border",
+      "hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-50 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700",
       className
     )}>
       <div className="flex flex-col flex-1 min-h-0">
         {/* Logo/Brand */}
-        <div className="flex items-center h-16 px-6 border-b border-border">
+        <div className="flex items-center h-16 px-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
               <Target className="w-5 h-5 text-white" />
             </div>
             <span className="font-semibold text-lg">FocusHabit</span>
@@ -116,27 +110,25 @@ export function DesktopSidebar({ className }: DesktopSidebarProps) {
             const Icon = item.icon
             
             return (
-              <Button
+              <Link
                 key={item.id}
-                asChild
-                variant={isActive ? "secondary" : "ghost"}
+                href={item.href}
                 className={cn(
-                  "w-full justify-start gap-3 h-11",
-                  isActive && "bg-primary/10 text-primary hover:bg-primary/15"
+                  "flex items-center gap-3 h-11 px-3 rounded-lg transition-colors touch-manipulation",
+                  "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800",
+                  isActive && "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
                 )}
               >
-                <Link href={item.href}>
-                  <Icon className="h-5 w-5" />
-                  <span className="font-medium">{item.label}</span>
-                </Link>
-              </Button>
+                <Icon className="h-5 w-5" />
+                <span className="font-medium">{item.label}</span>
+              </Link>
             )
           })}
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-border">
-          <div className="flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground">
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 dark:text-gray-400">
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
             <span>Online</span>
           </div>

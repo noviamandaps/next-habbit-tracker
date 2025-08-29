@@ -65,7 +65,7 @@ export default function FocusPage() {
   const [status, setStatus] = useState<TimerStatus>('idle')
   const [timeLeft, setTimeLeft] = useState(25 * 60) // 25 minutes in seconds
   const [sessionCount, setSessionCount] = useState(0)
-  const [selectedHabitId, setSelectedHabitId] = useState<string>('')
+  const [selectedHabitId, setSelectedHabitId] = useState<string>('none')
   const [notes, setNotes] = useState('')
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -157,7 +157,7 @@ export default function FocusPage() {
     if (startTimeRef.current) {
       const session = {
         id: generateId(),
-        habitId: selectedHabitId || undefined,
+        habitId: selectedHabitId !== 'none' ? selectedHabitId : undefined,
         mode,
         plannedMinutes: Math.floor(getTotalTimeForMode(mode) / 60),
         actualMinutes: Math.floor((Date.now() - startTimeRef.current.getTime()) / 60000),
@@ -397,7 +397,7 @@ export default function FocusPage() {
                       <SelectValue placeholder="Pilih habit..." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Tidak ada</SelectItem>
+                      <SelectItem value="none">Tidak ada</SelectItem>
                       {habits.filter(h => h.isActive).map((habit) => (
                         <SelectItem key={habit.id} value={habit.id}>
                           <div className="flex items-center gap-2">

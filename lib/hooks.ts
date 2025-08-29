@@ -3,6 +3,7 @@ import { HabitStorage } from './storage'
 import { Habit, HabitLog, PomodoroSession, UserPreferences, HabitWithStats } from './types'
 import { calculateStreak } from './utils'
 import { toast } from 'sonner'
+import { useMemo } from 'react'
 
 // Query Keys
 export const QUERY_KEYS = {
@@ -19,6 +20,7 @@ export function useHabits() {
     queryKey: QUERY_KEYS.HABITS,
     queryFn: HabitStorage.getHabits,
     staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 10, // 10 minutes (cacheTime)
   })
 }
 
@@ -41,7 +43,7 @@ export function useHabitsWithStats() {
         return {
           ...habit,
           todayCompleted: todayLog?.completed || false,
-          currentStreak: calculateStreak(habitLogs),
+          currentStreak: calculateStreak(habitLogs.map(log => ({ date: log.date, done: log.completed }))),
           totalCompletions: completedLogs.length,
           completionRate: habitLogs.length > 0 ? (completedLogs.length / habitLogs.length) * 100 : 0
         }

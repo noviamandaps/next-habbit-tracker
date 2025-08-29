@@ -31,9 +31,20 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig = {
+  // Performance optimizations
+  swcMinify: true,
+  compress: true,
+  poweredByHeader: false,
+  
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', '@tanstack/react-query'],
+    optimizeCss: true,
   },
+  
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
   images: {
     remotePatterns: [
       {

@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils'
 import { Header } from './header'
 import { BottomNavigation, DesktopSidebar } from './navigation'
+import { memo } from 'react'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -13,7 +14,7 @@ interface AppShellProps {
   className?: string
 }
 
-export function AppShell({
+export const AppShell = memo(function AppShell({
   children,
   title,
   showBack = false,
@@ -22,7 +23,7 @@ export function AppShell({
   className
 }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Desktop Sidebar */}
       <DesktopSidebar />
 
@@ -37,8 +38,9 @@ export function AppShell({
         </Header>
 
         <main className={cn(
-          "container mx-auto px-4 py-6",
+          "px-4 py-4",
           "pb-20 md:pb-6", // Extra padding bottom for mobile nav
+          "min-h-[calc(100vh-4rem)]", // Full height minus header
           className
         )}>
           {children}
@@ -49,4 +51,4 @@ export function AppShell({
       <BottomNavigation />
     </div>
   )
-}
+})
