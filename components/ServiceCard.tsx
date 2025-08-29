@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 interface ServiceCardProps {
   icon: LucideIcon
@@ -95,7 +95,7 @@ export function ServiceCard({
           className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
           variant="outline"
         >
-          <Link to={href}>
+          <Link href={href}>
             Learn More
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>

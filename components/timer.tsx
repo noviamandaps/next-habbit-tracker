@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ProgressRing } from '@/components/ui/progress-ring'
 import { Play, Pause, RotateCcw, Volume2, VolumeX } from 'lucide-react'
-import { motion } from 'framer-motion'
 
 export type TimerMode = 'focus' | 'short_break' | 'long_break'
 
@@ -132,13 +131,10 @@ export function Timer({
             size={200} 
             strokeWidth={12}
             className="mb-4"
-            style={{ color: MODE_COLORS[mode] } as any}
           >
-            <motion.div
+            <div
               key={`${minutes}-${seconds}`}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-center"
+              className="text-center animate-fade-in"
             >
               <div className="text-4xl font-bold font-mono">
                 {formatTime(timeLeft)}
@@ -146,7 +142,7 @@ export function Timer({
               <div className="text-sm text-muted-foreground mt-1">
                 {MODE_LABELS[mode]}
               </div>
-            </motion.div>
+            </div>
           </ProgressRing>
         </div>
 
@@ -191,13 +187,9 @@ export function Timer({
         {/* Session Info */}
         <div className="text-center text-sm text-muted-foreground">
           {timeLeft === 0 ? (
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-primary font-medium"
-            >
+            <div className="text-primary font-medium animate-fade-in">
               {mode === 'focus' ? 'Sesi fokus selesai! 🎉' : 'Waktu istirahat habis! ⏰'}
-            </motion.div>
+            </div>
           ) : (
             <div>
               {isRunning ? 'Timer berjalan...' : 'Tekan play untuk memulai'}

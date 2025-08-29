@@ -38,7 +38,6 @@ const nextConfig = {
   
   experimental: {
     optimizePackageImports: ['lucide-react', '@tanstack/react-query'],
-    optimizeCss: true,
   },
   
   compiler: {
